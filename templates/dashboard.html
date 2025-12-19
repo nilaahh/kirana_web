@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Kirana Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+    margin: 0;
+    background: #f4f6f8;
+    font-family: system-ui, sans-serif;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.top a {
+    text-decoration: none;
+    color: #0077ff;
+    font-weight: 600;
+}
+
+.section {
+    margin-top: 30px;
+}
+
+textarea, input, button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    background: #0077ff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+button.danger {
+    background: #e53935;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background: #f0f2f4;
+}
+
+.edit {
+    font-size: 13px;
+    display: block;
+    margin-top: 4px;
+}
+.week {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+.day-card {
+    background: rgba(255,255,255,0.08);
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.day-card h4 {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #555;
+    padding-bottom: 5px;
+}
+
+.meal-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+}
+
+.meal-type {
+    font-weight: bold;
+}
+
+@media (min-width: 768px) {
+    .week {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .week {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="top">
+    <h2>Weekly Meal Planner</h2>
+    <a href="/logout">Logout</a>
+</div>
+
+<!-- SMART INPUT -->
+<div class="section">
+    <h3>Quick Add</h3>
+    <form method="POST" action="/smart-add">
+        <textarea name="raw_text" rows="5"
+            placeholder="Monday breakfast dosa
+Tuesday lunch rice
+Wednesday dinner chapathi" required></textarea>
+        <button type="submit">Plan</button>
+    </form>
+</div>
+
+<!-- WEEKLY GRID -->
+<div class="section">
+     <h3>Weekly Meal Plan</h3>
+
+<div class="week">
+
+{% for day, meals in weekly.items() %}
+    <div class="day-card">
+        <h4>{{ day }}</h4>
+
+        {% for mt in meal_types %}
+            <div class="meal-row">
+                <span class="meal-type">{{ mt }}</span>
+                <span class="meal-name">
+                    {{ meals[mt].meal_name if meals[mt] else "—" }}
+                </span>
+            </div>
+        {% endfor %}
+    </div>
+{% endfor %}
+
+</div>
+
+
+<!-- CLEAR -->
+<div class="section">
+    <form method="POST" action="/clear-meals"
+          onsubmit="return confirm('Clear entire week?');">
+        <button class="danger">Clear Weekly Plan</button>
+    </form>
+</div>
+
+</div>
+</body>
+</html>
