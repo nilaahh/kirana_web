@@ -1,0 +1,18 @@
+{
+  "rice": ["carb"],
+  "rice flour": ["carb"],
+  "wheat flour": ["carb"],
+
+  "egg": ["protein"],
+  "chicken": ["protein"],
+  "fish": ["protein"],
+  "dal": ["protein"],
+
+  "oil": ["fat"],
+  "ghee": ["fat"],
+  "butter": ["fat"],
+
+  "vegetables": ["fiber"],
+  "spinach": ["fiber"],
+  "carrot": ["fiber"]
+}

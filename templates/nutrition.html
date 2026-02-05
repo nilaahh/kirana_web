@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nutrition Analysis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: url('{{ url_for("static", filename="images/plan.jpg") }}')
+                        no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            width: 90%;
+            max-width: 700px;
+            background: rgba(25, 25, 25, 0.9);
+            color: #f2f2f2;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+        }
+
+        h2 {
+            margin-top: 0;
+            border-bottom: 1px solid #444;
+            padding-bottom: 8px;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+        }
+
+        ul li {
+            background: rgba(255,255,255,0.1);
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+        }
+
+        .actions {
+            margin-top: 25px;
+            text-align: right;
+        }
+
+        .actions a button {
+            background: #7fc8ff;
+            color: #000;
+            border: none;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .actions a button:hover {
+            background: #5fb2e6;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card">
+
+    <h2>Nutrition Summary</h2>
+    <ul>
+        {% for k, v in summary.items() %}
+            <li><strong>{{ k.title() }}</strong>: {{ v }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Recommendations</h2>
+    <ul>
+        {% for r in recommendations %}
+            <li>{{ r }}</li>
+        {% endfor %}
+    </ul>
+
+    <div class="actions">
+        <a href="/dashboard">
+            <button type="button">← Back to Dashboard</button>
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

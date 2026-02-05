@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weekly Meal Planner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: url('{{ url_for("static", filename="images/image7.webp") }}')
+                        no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 95%;
+            max-width: 1000px;
+            background: rgba(25, 25, 25, 0.9);
+            color: #f2f2f2;
+            padding: 30px;
+            border-radius: 14px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+        }
+
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .top-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .top-actions button {
+            background: #7fc8ff;
+            color: #000;
+            border: none;
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .logout button {
+            background: #e74c3c;
+            color: white;
+        }
+
+        hr {
+            border: 0;
+            border-top: 1px solid #444;
+            margin: 20px 0;
+        }
+
+        h3 {
+            margin-top: 20px;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+        }
+
+        select, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border-radius: 6px;
+            border: none;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 12px;
+            width: 100%;
+            background: #66c0c0;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #4aa0a0;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            border: 1px solid #555;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .danger {
+            background: #c0392b;
+        }
+
+        .danger:hover {
+            background: #a93226;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.08);
+            padding: 12px;
+            margin-top: 8px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .muted {
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <h2>Welcome, {{ user.name }}</h2>
+
+        <div class="top-actions">
+            <a href="/nutrition"><button type="button">Nutrition</button></a>
+            <a href="/logout" class="logout"><button type="button">Logout</button></a>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- ADD MEAL -->
+    <h3>Add Meal</h3>
+    <form method="POST">
+        <label>Day</label>
+        <select name="day" required>
+            {% for d in days %}
+                <option>{{ d }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Meal Type</label>
+        <select name="meal_type" required>
+            {% for m in meal_types %}
+                <option>{{ m }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Meal Name</label>
+        <input type="text" name="meal_name" required>
+
+        <button type="submit">Save Meal</button>
+    </form>
+
+    <hr>
+
+    <!-- WEEKLY PLAN -->
+    <h3>Weekly Plan</h3>
+    <table>
+        <tr>
+            <th>Day</th>
+            {% for m in meal_types %}
+                <th>{{ m }}</th>
+            {% endfor %}
+        </tr>
+
+        {% for day, meals in weekly.items() %}
+        <tr>
+            <td><strong>{{ day }}</strong></td>
+            {% for m in meal_types %}
+                <td>{{ meals.get(m) or "—" }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+    <hr>
+
+    <!-- CLEAR -->
+    <form method="POST" action="/clear-meals"
+          onsubmit="return confirm('Clear entire plan?');">
+        <button type="submit" class="danger">Clear Weekly Plan</button>
+    </form>
+
+    <div class="top-bar">
+    <h2>Welcome, {{ user.name }}</h2>
+
+    <div class="top-actions">
+        <a href="/nutrition">
+            <button type="button">Nutrition</button>
+        </a>
+
+        <a href="/chatbot">
+            <button type="button">Diet Chatbot</button>
+        </a>
+
+        <a href="/logout" class="logout">
+            <button type="button">Logout</button>
+        </a>
+    </div>
+</div>
+
+</div>
+</body>
+</html>
