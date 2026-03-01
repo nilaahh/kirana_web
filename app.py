@@ -22,7 +22,7 @@ from meal_ingredients_v2 import MEAL_INGREDIENTS
 # ---------- APP CONFIG ----------
 
 app = Flask(__name__)
-app.secret_key = "kirana-secret-key"
+app.secret_key = "------------"
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:root123@localhost/user_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -32,8 +32,8 @@ app.config.update(
     MAIL_SERVER="smtp.gmail.com",
     MAIL_PORT=587,
     MAIL_USE_TLS=True,
-    MAIL_USERNAME="forkirana2026@gmail.com",
-    MAIL_PASSWORD="rzas fqjj jlnv kxtb"
+    MAIL_USERNAME="---------",
+    MAIL_PASSWORD="-----------"
 )
 
 db = SQLAlchemy(app)
