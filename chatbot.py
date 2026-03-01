@@ -1,65 +1,31 @@
-# chatbot.py
+import pandas as pd
+import pickle
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.linear_model import LogisticRegression
 
-CONDITIONS = {
-    "diabetes": ["diabetes", "diabetic", "blood sugar"],
-    "hypertension": ["bp", "blood pressure", "hypertension"],
-    "obesity": ["obese", "overweight", "weight loss"]
-}
+# Load dataset
+data = pd.read_csv("chatbot_data.csv")
 
-DIET_GUIDE = {
-    "diabetes": {
-        "avoid": [
-            "Sugary foods",
-            "Sugary drinks",
-            "White rice and refined flour",
-            "Deep-fried foods",
-            "Processed snacks"
-        ],
-        "prefer": [
-            "Whole grains",
-            "High-fiber vegetables",
-            "Lean protein (egg, fish, lentils)",
-            "Healthy fats (nuts, seeds)"
-        ]
-    }
-}
+data.dropna(inplace=True)
 
+# Optional: remove completely blank strings
+data = data[data["text"].str.strip() != ""]
+data = data[data["intent"].str.strip() != ""]
 
-def detect_condition(message: str):
-    message = message.lower()
-    for condition, keywords in CONDITIONS.items():
-        for word in keywords:
-            if word in message:
-                return condition
-    return None
+# Extract features and labels
+X = data["text"]
+y = data["intent"]
 
+# Convert text to vectors
+vectorizer = TfidfVectorizer()
+X_vectorized = vectorizer.fit_transform(X)
 
-def generate_response(condition: str) -> str:
-    guide = DIET_GUIDE[condition]
+# Train classifier
+model = LogisticRegression()
+model.fit(X_vectorized, y)
 
-    response = f"Based on general dietary guidelines for {condition.capitalize()}:\n\n"
-    response += "Foods to limit or avoid:\n"
-    for item in guide["avoid"]:
-        response += f"- {item}\n"
+# Save model + vectorizer
+pickle.dump(model, open("intent_model.pkl", "wb"))
+pickle.dump(vectorizer, open("vectorizer.pkl", "wb"))
 
-    response += "\nFoods to choose more often:\n"
-    for item in guide["prefer"]:
-        response += f"- {item}\n"
-
-    response += "\n⚠️ This is general guidance, not medical advice."
-    return response
-
-
-def chatbot_reply(user_message: str) -> str:
-    condition = detect_condition(user_message)
-
-    if not condition:
-        return (
-            "I can help with diet guidance for conditions like:\n"
-            "- Diabetes\n"
-            "- Blood Pressure\n"
-            "- Weight Management\n\n"
-            "Please mention your condition."
-        )
-
-    return generate_response(condition)
+print("Model trained and saved successfully.")

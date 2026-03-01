@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weekly Grocery List</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+
+            background-image: url("/static/images/127.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-color: lightcyan;
+        }
+
+        /* Top Navigation */
+        .top-nav {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .top-nav a {
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            margin-left: 10px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .back-btn {
+            background: #ffffff;
+            color: #333;
+            border: 2px solid #333;
+        }
+
+        /* Main Content */
+        .content {
+            padding: 60px;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-top: 120px;
+            color: #f5f0f0;
+        }
+
+        table {
+            margin-top: 40px;
+            width: 500px;
+            border-collapse: collapse;
+            color: #ffffff;
+            font-size: 18px;
+        }
+
+        th {
+            text-align: left;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255,255,255,0.6);
+        }
+
+        td {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+        }
+
+        td:last-child {
+            text-align: right;
+        }
+
+        tr:hover {
+            background-color: rgba(255,255,255,0.08);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-nav">
+        <a href="/" class="back-btn">Back</a>
+    </div>
+
+    <div class="content">
+        <h1>🛒 Weekly Grocery List</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th style="text-align:right;">Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item, data in grocery_list.items() %}
+                <tr>
+                    <td>{{ item.capitalize() }}</td>
+                    <td>
+                        {% if data.qty is not none and data.qty >= 1000 and data.unit == "g" %}
+                            {{ "%.2f"|format(data.qty / 1000) }} kg
+                        {% elif data.qty is not none %}
+                            {{ data.qty }} {{ data.unit }}
+                        {% else %}
+                            As needed
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

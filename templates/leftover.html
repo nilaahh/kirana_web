@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recipe Suggester</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url("/static/images/image7.webp");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
+        /* Dark overlay for readability */
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: -1;
+        }
+
+        .top-nav {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .top-nav a {
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 15px;
+            font-weight: bold;
+            background: #ffffff;
+            color: #333;
+            border: none;
+            transition: 0.2s ease;
+        }
+
+        .top-nav a:hover {
+            background: #eaeaea;
+        }
+
+        .content {
+            padding: 60px;
+            max-width: 850px;
+        }
+
+        h1 {
+            font-size: 52px;
+            margin-top: 130px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border-radius: 8px;
+            border: none;
+            font-size: 16px;
+            margin-bottom: 15px;
+            outline: none;
+        }
+
+        button {
+            padding: 13px 28px;
+            border-radius: 8px;
+            border: none;
+            background: #ffffff;
+            color: #333;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.2s ease;
+        }
+
+        button:hover {
+            background: #f1f1f1;
+            transform: translateY(-2px);
+        }
+
+        hr {
+            border: 1px solid rgba(255,255,255,0.2);
+            margin: 50px 0;
+        }
+
+        .recipe-card {
+            margin-top: 25px;
+            padding: 25px;
+            background: rgba(0, 0, 0, 0.65);
+            border-radius: 12px;
+            backdrop-filter: blur(4px);
+            transition: 0.2s ease;
+        }
+
+        .recipe-card:hover {
+            background: rgba(0, 0, 0, 0.75);
+            transform: translateY(-3px);
+        }
+
+        .score {
+            font-weight: bold;
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .missing {
+            color: #ff6b6b;
+            font-size: 14px;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-nav">
+        <a href="/">Back</a>
+    </div>
+
+    <div class="content">
+        <h1>🍳 Suggest a Recipe</h1>
+        <p>Type the ingredients you have, separated by commas:</p>
+
+        <form method="POST">
+            <input type="text" name="user_ingredients" placeholder="e.g. Chicken, Onion, Tomato" required>
+            <button type="submit">Find Recipes</button>
+        </form>
+
+        <hr>
+
+        {% if suggestions %}
+            <h3>Possible Meals:</h3>
+
+{% for s in suggestions %}
+    <div class="recipe-card">
+
+        <strong style="font-size:18px;">
+            {{ s.meal }}
+        </strong>
+
+        <p style="color:#4CAF50; font-weight:bold;">
+            {{ s.score }}% Match
+        </p>
+
+        {% if s.missing %}
+            <p style="color:#d9534f;">
+                <strong>Still need:</strong>
+                {{ s.missing | join(', ') }}
+            </p>
+        {% else %}
+            <p style="color:#28a745;">
+                You have everything!
+            </p>
+        {% endif %}
+
+    </div>
+{% endfor %}
+
+        {% elif request.method == 'POST' %}
+            <p>No recipes found. Try adding more ingredients.</p>
+        {% endif %}
+    </div>
+
+</body>
+</html>

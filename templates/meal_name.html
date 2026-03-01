@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Meal Library</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+
+            background-image: url("/static/images/122.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-color: lightcyan;
+            color: white;
+        }
+
+        .top-nav {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .top-nav a {
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: bold;
+            background: #ffffff;
+            color: #333;
+            border: 2px solid #333;
+        }
+
+        .content {
+            padding: 60px;
+            max-width: 1000px;
+        }
+
+        h1 {
+            font-size: 48px;
+            margin-top: 120px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+
+        .search-box {
+            width: 400px;
+            padding: 14px;
+            border-radius: 6px;
+            border: none;
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+
+        .meal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .meal-card {
+            padding: 18px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+
+        .meal-card:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .no-results {
+            margin-top: 40px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-nav">
+        <a href="/dashboard">Back</a>
+    </div>
+
+    <div class="content">
+        <h1>🍱 Meal Reference Library</h1>
+        <p>Search for the exact meal name used in the database.</p>
+
+        <form method="GET" action="/meal_name">
+            <input type="text" 
+                   name="q" 
+                   class="search-box" 
+                   placeholder="Search meals (e.g. Chicken, Curry, Rice)..."
+                   value="{{ request.args.get('q', '') }}">
+        </form>
+
+        <div class="meal-grid">
+            {% for meal in meals %}
+                <div class="meal-card" onclick="copyToClipboard('{{ meal }}')">
+                    <strong>{{ meal }}</strong>
+                </div>
+            {% else %}
+                <div class="no-results">
+                    No meals found matching your search.
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+<script>
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text);
+    alert("Copied: " + text);
+}
+</script>
+
+</body>
+</html>

@@ -1,29 +1,41 @@
-import json
-import re
-from collections import Counter
-
-RULES_PATH = "data/meal_rules.json"
+from meal_service import get_meal_ingredients
 
 
-def normalize(text):
-    text = text.lower()
-    text = re.sub(r"[^a-z\s]", "", text)
-    return text.strip()
+def generate_weekly_grocery(meals, persons):
+    grocery = {}
 
+    for meal in meals:
 
-def generate_grocery_list(meal_names):
-    with open(RULES_PATH, "r", encoding="utf-8") as f:
-        meal_rules = json.load(f)
+        # Get string
+        meal_string = meal.meal_name if hasattr(meal, "meal_name") else str(meal)
 
-    grocery = Counter()
+        # Split multiple meals
+        meal_list = meal_string.split(",")
 
-    for meal in meal_names:
-        meal_key = normalize(meal)
+        for single_meal in meal_list:
+            meal_name = single_meal.strip().lower()
 
-        if meal_key in meal_rules:
-            for ingredient in meal_rules[meal_key]:
-                grocery[ingredient] += 1
-        else:
-            grocery["unknown item"] += 1
+            ingredients = get_meal_ingredients(meal_name)
 
-    return dict(grocery)
+            if "error" in ingredients:
+                print(ingredients["error"])
+                continue
+
+            for item, data in ingredients.items():
+                qty = data["qty"]
+                unit = data["unit"]
+
+                total_qty = float(qty) * persons
+
+                if item not in grocery:
+                    grocery[item] = {"qty": 0, "unit": unit}
+
+                grocery[item]["qty"] += total_qty
+
+    # Clean rounding
+    for item in grocery:
+        val = grocery[item]["qty"]
+        val = round(val, 2)
+        grocery[item]["qty"] = int(val) if val % 1 == 0 else val
+
+    return grocery

@@ -1,119 +1,240 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Diet Assistant</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Kirana - Diet Assistant</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+<style>
+* { box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            background: url('{{ url_for("static", filename="images/image11.webp") }}')
-                        no-repeat center center;
-            background-size: cover;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: url('{{ url_for("static", filename="images/123.jpg") }}') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        .chat-card {
-            width: 90%;
-            max-width: 700px;
-            background: rgba(40, 40, 40, 0.85); /* SAME as login */
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            color: #f8f8f8;
-        }
+.chat-card {
+    width: 95%;
+    max-width: 600px;
+    background: rgba(30, 30, 30, 0.95);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+    color: #f8f8f8;
+    border: 1px solid rgba(255,255,255,0.1);
+}
 
-        h2 {
-            margin-top: 0;
-            margin-bottom: 15px;
-            text-align: center;
-        }
+h2 {
+    text-align: center;
+    color: #66c0c0;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
 
-        .chat-box {
-            background: rgba(255,255,255,0.08);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            min-height: 120px;
-            white-space: pre-wrap;
-        }
+#chat-window {
+    height: 400px;
+    overflow-y: auto;
+    background: rgba(0,0,0,0.3);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 1px solid #444;
+    scroll-behavior: smooth;
+}
 
-        form {
-            display: flex;
-            gap: 10px;
-        }
+.message {
+    max-width: 85%;
+    padding: 12px 16px;
+    border-radius: 15px;
+    font-size: 14.5px;
+    line-height: 1.5;
+    word-wrap: break-word;
+    opacity: 0;
+    transform: translateY(10px);
+    animation: fadeIn 0.3s ease forwards;
+}
 
-        input[type="text"] {
-            flex: 1;
-            padding: 12px;
-            border-radius: 8px;
-            border: none;
-            font-size: 15px;
-        }
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        button {
-            padding: 12px 18px;
-            background-color: #66c0c0;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 15px;
-        }
+.user-msg {
+    align-self: flex-end;
+    background: #66c0c0;
+    color: white;
+    border-bottom-right-radius: 2px;
+}
 
-        button:hover {
-            background-color: #4aa0a0;
-        }
+.bot-msg {
+    align-self: flex-start;
+    background: #444;
+    color: #eee;
+    border-bottom-left-radius: 2px;
+}
 
-        .actions {
-            margin-top: 20px;
-            text-align: right;
-        }
+/* Typing dots animation */
+.typing {
+    display: flex;
+    gap: 5px;
+}
 
-        .actions a {
-            color: #7fc8ff;
-            text-decoration: none;
-            font-size: 14px;
-        }
+.typing span {
+    width: 6px;
+    height: 6px;
+    background: #aaa;
+    border-radius: 50%;
+    animation: bounce 1.2s infinite;
+}
 
-        .actions a:hover {
-            text-decoration: underline;
-        }
-    </style>
+.typing span:nth-child(2) { animation-delay: 0.2s; }
+.typing span:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+    0%, 80%, 100% { transform: scale(0.6); opacity: 0.5; }
+    40% { transform: scale(1); opacity: 1; }
+}
+
+.input-area { display: flex; gap: 10px; }
+
+input[type="text"] {
+    flex: 1;
+    padding: 14px;
+    border-radius: 8px;
+    border: 1px solid #555;
+    background: #222;
+    color: white;
+    outline: none;
+}
+
+input[type="text"]:focus { border-color: #66c0c0; }
+
+button {
+    padding: 12px 25px;
+    background-color: #66c0c0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+}
+
+button:hover { background-color: #4aa0a0; }
+button:active { transform: scale(0.96); }
+
+button:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+
+.actions { margin-top: 15px; text-align: center; }
+.actions a { color: #aaa; text-decoration: none; font-size: 13px; }
+.actions a:hover { color: #66c0c0; }
+
+#chat-window::-webkit-scrollbar { width: 6px; }
+#chat-window::-webkit-scrollbar-thumb { background: #555; border-radius: 10px; }
+</style>
 </head>
 <body>
 
 <div class="chat-card">
+    <h2>🥗 Kirana Diet Assistant</h2>
 
-    <h2>🥗 Diet Assistant</h2>
-
-    <div class="chat-box">
-        {% if reply %}
-            {{ reply }}
-        {% else %}
-            Ask me anything about diet, diabetes, calories, or meal choices.
-        {% endif %}
+    <div id="chat-window">
+        <div class="message bot-msg">
+            Welcome to Kirana Diet Assistant 👋 <br><br>
+            I provide general dietary guidance for:<br>
+            <b>Diabetes, Cholesterol, Weight Loss, Weight Gain, Anemia, Thyroid, Hypertension, COPD</b>
+            <br><br>
+            Ask your question below.
+        </div>
     </div>
 
-    <form method="POST">
-        <input type="text" name="message" placeholder="Ask about your condition..." required>
-        <button type="submit">Ask</button>
-    </form>
+    <div class="input-area">
+        <input type="text" id="user-input"
+               placeholder="Ask about a condition or diet..."
+               autocomplete="off" autofocus>
+        <button id="send-btn" onclick="sendMessage()">Ask</button>
+    </div>
 
     <div class="actions">
         <a href="/dashboard">← Back to Dashboard</a>
     </div>
-
 </div>
+
+<script>
+async function sendMessage() {
+    const inputField = document.getElementById('user-input');
+    const chatWindow = document.getElementById('chat-window');
+    const sendBtn = document.getElementById('send-btn');
+    const message = inputField.value.trim();
+
+    if (!message) return;
+
+    const userDiv = document.createElement('div');
+    userDiv.className = 'message user-msg';
+    userDiv.innerText = message;
+    chatWindow.appendChild(userDiv);
+
+    inputField.value = '';
+    sendBtn.disabled = true;
+
+    // Animated typing indicator
+    const typingDiv = document.createElement('div');
+    typingDiv.className = 'message bot-msg';
+    typingDiv.innerHTML = `
+        <div class="typing">
+            <span></span><span></span><span></span>
+        </div>
+    `;
+    chatWindow.appendChild(typingDiv);
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+
+    try {
+        const response = await fetch('/chatbot', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: message })
+        });
+
+        const data = await response.json();
+        typingDiv.remove();
+
+        const botDiv = document.createElement('div');
+        botDiv.className = 'message bot-msg';
+        botDiv.innerHTML = data.reply;
+        chatWindow.appendChild(botDiv);
+
+    } catch (error) {
+        typingDiv.remove();
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'message bot-msg';
+        errorDiv.innerHTML = "⚠️ System Error. Please try again.";
+        chatWindow.appendChild(errorDiv);
+    }
+
+    sendBtn.disabled = false;
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+}
+
+document.getElementById('user-input').addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        sendMessage();
+    }
+});
+</script>
 
 </body>
 </html>

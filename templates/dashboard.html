@@ -14,213 +14,303 @@
         body {
             margin: 0;
             min-height: 100vh;
+            font-size: 14px;
             background: url('{{ url_for("static", filename="images/image7.webp") }}')
                         no-repeat center center fixed;
             background-size: cover;
+        }
+
+        /* ===== LAYOUT ===== */
+        .layout {
             display: flex;
-            justify-content: center;
-            align-items: center;
+            min-height: 100vh;
         }
 
-        .container {
-            width: 95%;
-            max-width: 1000px;
-            background: rgba(25, 25, 25, 0.9);
-            color: #f2f2f2;
-            padding: 30px;
-            border-radius: 14px;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
-        }
-
-        .top-bar {
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 220px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 22px 18px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
         }
 
-        .top-actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        .top-actions button {
-            background: #7fc8ff;
-            color: #000;
-            border: none;
-            padding: 8px 14px;
-            border-radius: 6px;
-            cursor: pointer;
+        .sidebar .brand {
+            color: #7fc8ff;
+            margin-bottom: 26px;
+            text-align: center;
+            font-size: 17px;
             font-weight: bold;
         }
 
-        .logout button {
-            background: #e74c3c;
+        .sidebar a {
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 14px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            display: block;
+            background: rgba(255,255,255,0.12);
+            transition: background 0.2s ease, transform 0.1s ease;
+        }
+
+        .sidebar a:hover {
+            background: #66c0c0;
+            transform: translateX(4px);
+        }
+
+        .sidebar a.active {
+            background: #66c0c0;
+        }
+
+        .sidebar a.highlight {
+            background: rgba(255, 152, 0, 0.2);
+            border: 1px solid #ff9800;
+            color: #ffb74d;
+        }
+
+        .sidebar a.highlight:hover {
+            background: #ff9800;
             color: white;
         }
+
+        .sidebar .logout {
+            margin-top: auto;
+            background: #c0392b;
+        }
+
+        .sidebar .logout:hover {
+            background: #a93226;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .container {
+            flex: 1;
+            max-width: 960px;
+            margin: 30px auto;
+            background: rgba(25, 25, 25, 0.9);
+            color: #f2f2f2;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+        }
+
+        h2 { margin: 0 0 12px 0; font-size: 18px; }
+        h3 { margin: 12px 0; font-size: 15px; }
 
         hr {
             border: 0;
             border-top: 1px solid #444;
-            margin: 20px 0;
-        }
-
-        h3 {
-            margin-top: 20px;
+            margin: 18px 0;
         }
 
         label {
             display: block;
-            margin-top: 12px;
+            margin-top: 8px;
+            font-size: 13px;
+            color: #ccc;
         }
 
-        select, input[type="text"] {
+        select, input[type="text"], input[type="file"] {
             width: 100%;
-            padding: 10px;
-            margin-top: 6px;
-            border-radius: 6px;
+            padding: 7px 9px;
+            margin-top: 4px;
+            border-radius: 5px;
             border: none;
+            font-size: 13px;
         }
 
         button {
-            margin-top: 15px;
-            padding: 12px;
+            margin-top: 12px;
+            padding: 9px;
             width: 100%;
             background: #66c0c0;
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 15px;
+            border-radius: 6px;
+            font-size: 13px;
             cursor: pointer;
+            font-weight: bold;
         }
 
-        button:hover {
-            background: #4aa0a0;
+        button:hover { background: #4aa0a0; }
+
+        .btn-suggest {
+            background: #ff9800;
+            margin-bottom: 20px;
+            font-size: 14px;
+            padding: 12px;
         }
 
+        .btn-suggest:hover { background: #e68a00; }
+
+        .secondary { background: #4f6f7f; }
+        .secondary:hover { background: #3e5b69; }
+
+        .danger { background: #c0392b; }
+        .danger:hover { background: #a93226; }
+
+        /* ===== TABLE (ONLY PART MODIFIED) ===== */
         table {
-            width: 100%;
-            margin-top: 20px;
+            width: 85%;
+            margin: 14px auto;
             border-collapse: collapse;
+            font-size: 13px;
+            table-layout: fixed;
         }
 
         th, td {
             border: 1px solid #555;
-            padding: 12px;
+            padding: 6px;
             text-align: center;
         }
 
         th {
-            background: rgba(255,255,255,0.1);
-        }
-
-        .danger {
-            background: #c0392b;
-        }
-
-        .danger:hover {
-            background: #a93226;
-        }
-
-        .card {
             background: rgba(255,255,255,0.08);
-            padding: 12px;
-            margin-top: 8px;
-            border-radius: 8px;
-            font-weight: bold;
         }
 
-        .muted {
-            opacity: 0.7;
+        .persons-col {
+            width: 85px;
+        }
+
+        .persons-form {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .persons-select {
+            width: 45px;
+            padding: 3px;
+            font-size: 12px;
+        }
+
+        .persons-btn {
+            width: 28px;
+            padding: 3px;
+            font-size: 12px;
+        }
+
+        /* ===== FLASH MESSAGE ===== */
+        .flash {
+            padding: 10px;
+            background: rgb(33, 68, 33);
+            color: #7fc8ff;
+            border-radius: 6px;
+            margin-bottom: 12px;
         }
     </style>
 </head>
+
 <body>
 
-<div class="container">
+<div class="layout">
 
-    <!-- TOP BAR -->
-    <div class="top-bar">
+    <div class="sidebar">
+        <div class="brand">Meal Planner</div>
+        <a href="/dashboard" class="active">📅 Dashboard</a>
+        <a href="/suggest" >🍳 Leftover Cook</a>
+        <a href="/nutrition">🍎 Nutrition</a>
+        <a href="/chatbot">💬 Diet Chatbot</a>
+        <a href="/grocery">🛒 Grocery List</a>
+        <a href="/meal_name">📚 Meal Library</a>
+        <a href="/logout" class="logout">🚪 Logout</a>
+       
+    </div>
+
+    <div class="container">
+
         <h2>Welcome, {{ user.name }}</h2>
 
-        <div class="top-actions">
-            <a href="/nutrition"><button type="button">Nutrition</button></a>
-            <a href="/logout" class="logout"><button type="button">Logout</button></a>
-        </div>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <div class="flash">
+              {{ messages[0] }}
+            </div>
+          {% endif %}
+        {% endwith %}
+
+        <hr>
+
+        <h3>Add Meal</h3>
+        <form method="POST">
+            <label>Day</label>
+            <select name="day" required>
+                {% for d in days %}
+                    <option>{{ d }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Meal Type</label>
+            <select name="meal_type" required>
+                {% for m in meal_types %}
+                    <option>{{ m }}</option>
+                {% endfor %}
+            </select>
+
+            <label>Meal Name (separate multiple with commas)</label>
+            <input type="text" name="meal_name" placeholder="e.g. Chapathi, Chicken Curry" required>
+
+            <button type="submit">Save Meal</button>
+        </form>
+
+        <h3>Weekly Plan</h3>
+
+        <table>
+            <tr>
+                <th>Day</th>
+                {% for m in meal_types %}
+                    <th>{{ m }}</th>
+                {% endfor %}
+                <th class="persons-col">Persons</th>
+            </tr>
+
+            {% for day, meals in weekly.items() %}
+            <tr>
+                <td><strong>{{ day }}</strong></td>
+
+                {% for m in meal_types %}
+                    <td>{{ meals.get(m) or "—" }}</td>
+                {% endfor %}
+
+                <td class="persons-col">
+                    <form method="POST"
+                          action="{{ url_for('update_persons') }}"
+                          class="persons-form">
+
+                        <input type="hidden" name="day" value="{{ day }}">
+
+                        <select name="persons" class="persons-select">
+                            {% for i in range(1, 11) %}
+                                <option value="{{ i }}"
+                                {% if weekly_persons.get(day, 1) == i %}selected{% endif %}>
+                                    {{ i }}
+                                </option>
+                            {% endfor %}
+                        </select>
+
+                        <button type="submit" class="persons-btn">✓</button>
+
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <hr>
+       <form method="POST" action="{{ url_for('create_week') }}">
+    <input type="date" name="week_start_date" required>
+    <button type="submit">Create Week</button>
+</form>
+        <form method="POST" action="/clear-meals"
+              onsubmit="return confirm('Clear entire plan?');">
+            <button type="submit" class="danger">Clear Weekly Plan</button>
+        </form>
+
     </div>
-
-    <hr>
-
-    <!-- ADD MEAL -->
-    <h3>Add Meal</h3>
-    <form method="POST">
-        <label>Day</label>
-        <select name="day" required>
-            {% for d in days %}
-                <option>{{ d }}</option>
-            {% endfor %}
-        </select>
-
-        <label>Meal Type</label>
-        <select name="meal_type" required>
-            {% for m in meal_types %}
-                <option>{{ m }}</option>
-            {% endfor %}
-        </select>
-
-        <label>Meal Name</label>
-        <input type="text" name="meal_name" required>
-
-        <button type="submit">Save Meal</button>
-    </form>
-
-    <hr>
-
-    <!-- WEEKLY PLAN -->
-    <h3>Weekly Plan</h3>
-    <table>
-        <tr>
-            <th>Day</th>
-            {% for m in meal_types %}
-                <th>{{ m }}</th>
-            {% endfor %}
-        </tr>
-
-        {% for day, meals in weekly.items() %}
-        <tr>
-            <td><strong>{{ day }}</strong></td>
-            {% for m in meal_types %}
-                <td>{{ meals.get(m) or "—" }}</td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>
-
-    <hr>
-
-    <!-- CLEAR -->
-    <form method="POST" action="/clear-meals"
-          onsubmit="return confirm('Clear entire plan?');">
-        <button type="submit" class="danger">Clear Weekly Plan</button>
-    </form>
-
-    <div class="top-bar">
-    <h2>Welcome, {{ user.name }}</h2>
-
-    <div class="top-actions">
-        <a href="/nutrition">
-            <button type="button">Nutrition</button>
-        </a>
-
-        <a href="/chatbot">
-            <button type="button">Diet Chatbot</button>
-        </a>
-
-        <a href="/logout" class="logout">
-            <button type="button">Logout</button>
-        </a>
-    </div>
-</div>
-
 </div>
 </body>
 </html>

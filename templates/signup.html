@@ -18,7 +18,7 @@
         }
 
         body {
-            background: url('{{ url_for("static", filename="images/login-bg.jpg") }}') no-repeat center center;
+            background: url('{{ url_for("static", filename="images/128.jpg") }}') no-repeat center center;
             background-size: cover;
             display: flex;
             justify-content: center;
@@ -94,30 +94,95 @@
         .login-text a:hover {
             text-decoration: underline;
         }
+
+        .error-text {
+            color: #ff9b9b;
+            font-size: 12px;
+            text-align: left;
+            margin-top: -5px;
+            margin-bottom: 8px;
+        }
     </style>
 </head>
 <body>
 
-    <div class="signup-card">
-        <h2>Create Account</h2>
+<div class="signup-card">
+    <h2>Create Account</h2>
 
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            <div class="flash-message">{{ messages[0] }}</div>
-          {% endif %}
-        {% endwith %}
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="flash-message">{{ messages[0] }}</div>
+      {% endif %}
+    {% endwith %}
 
-        <form method="POST">
-            <input type="text" name="name" placeholder="Full Name" required>
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Signup</button>
-        </form>
+    <form method="POST" onsubmit="return validateForm()">
 
-        <div class="login-text">
-            Already have an account? <a href="/login">Login</a>
-        </div>
+        <input type="text" id="name" name="name" placeholder="UserName" required>
+        <div class="error-text" id="nameError"></div>
+
+        <input type="email" id="email" name="email" placeholder="Email" required>
+        <div class="error-text" id="emailError"></div>
+
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <div class="error-text" id="passwordError"></div>
+
+        <!-- Confirm Password Added -->
+        <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm Password" required>
+        <div class="error-text" id="confirmPasswordError"></div>
+
+        <button type="submit">Signup</button>
+    </form>
+
+    <div class="login-text">
+        Already have an account? <a href="/login">Login</a>
     </div>
+</div>
+
+<script>
+function validateForm() {
+    let isValid = true;
+
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
+    const confirmPassword = document.getElementById("confirm_password").value.trim();
+
+    document.getElementById("nameError").innerText = "";
+    document.getElementById("emailError").innerText = "";
+    document.getElementById("passwordError").innerText = "";
+    document.getElementById("confirmPasswordError").innerText = "";
+
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const passwordPattern =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+    if (name.length < 3) {
+        document.getElementById("nameError").innerText =
+            "Name must be at least 3 characters";
+        isValid = false;
+    }
+
+    if (!emailPattern.test(email)) {
+        document.getElementById("emailError").innerText =
+            "Enter a valid email address";
+        isValid = false;
+    }
+
+    if (!passwordPattern.test(password)) {
+        document.getElementById("passwordError").innerText =
+            "Password must be at least 8 characters and include uppercase, lowercase, number & special character";
+        isValid = false;
+    }
+
+    if (password !== confirmPassword) {
+        document.getElementById("confirmPasswordError").innerText =
+            "Passwords do not match";
+        isValid = false;
+    }
+
+    return isValid;
+}
+</script>
 
 </body>
 </html>

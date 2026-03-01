@@ -1,0 +1,187 @@
+text,intent
+hi,greeting
+hello,greeting
+hey bro,greeting
+namaskaram,greeting
+anybody there?,greeting
+good morning,greeting
+hey,greeting
+is anyone here,greeting
+hello bot,greeting
+hi sir,greeting
+good evening,greeting
+hey there,greeting
+hello friend,greeting
+hi team,greeting
+morning,greeting
+hi kirana,greeting
+hello helper,greeting
+hey buddy,greeting
+hi there,greeting
+yo,greeting
+hi i have diabetes,diabetes
+diabetes diet suggestions,diabetes
+foods for high blood sugar,diabetes
+diabetes meal plan,diabetes
+how to control glucose,diabetes
+i am diabetic,diabetes
+help with high sugar,diabetes
+low glycemic index foods,diabetes
+what to eat for diabetes,diabetes
+diabetes friendly meals,diabetes
+best fruit for sugar,diabetes
+can i eat rice with diabetes,diabetes
+managing blood sugar,diabetes
+high glucose diet,diabetes
+diabetic friendly meals,diabetes
+type 2 diabetes food,diabetes
+blood sugar management,diabetes
+sugar control tips,diabetes
+diabetic nutrition,diabetes
+glucose friendly diet,diabetes
+i am diabetic what should i eat,diabetes
+i have diabetes what to avoid,diabetes
+foods to avoid in diabetes,diabetes
+diet for diabetic patient,diabetes
+what fruits are bad for diabetes,diabetes
+hi i have high bp,hypertension
+hypertension diet plan,hypertension
+low salt meals,hypertension
+blood pressure diet,hypertension
+bp patient food,hypertension
+dash diet for bp,hypertension
+how to lower blood pressure,hypertension
+low sodium snacks,hypertension
+reduce hypertension naturally,hypertension
+foods for high bp,hypertension
+bp management diet,hypertension
+salt free recipes,hypertension
+high bp food list,hypertension
+hypertensive nutrition,hypertension
+heart healthy salt intake,hypertension
+how to manage hypertension,hypertension
+diet for stage 1 hypertension,hypertension
+hypertension help,hypertension
+lowering bp with food,hypertension
+is salt bad for bp,hypertension
+heart,hypertension
+how to lose weight,weight_loss
+fat loss diet,weight_loss
+low energy density foods,weight_loss
+want to get slim,weight_loss
+weight loss help,weight_loss
+diet for obesity,weight_loss
+how to burn fat,weight_loss
+lose belly fat diet,weight_loss
+calorie deficit foods,weight_loss
+slim down meals,weight_loss
+healthy weight loss,weight_loss
+best food for fat loss,weight_loss
+weight reduction plan,weight_loss
+how can i get thin,weight_loss
+weight management diet,weight_loss
+low calorie filling foods,weight_loss
+metabolism boosting food,weight_loss
+effective weight loss,weight_loss
+shedding weight tips,weight_loss
+diet for weight control,weight_loss
+how to gain weight,weight_gain
+i am too skinny,weight_gain
+high calorie foods for bulking,weight_gain
+meals for weight gain,weight_gain
+weight gain diet,weight_gain
+healthy bulking plan,weight_gain
+mass gain foods,weight_gain
+how to increase body weight,weight_gain
+protein for weight gain,weight_gain
+weight gain for thin people,weight_gain
+how to get muscular,weight_gain
+calorie dense meals,weight_gain
+weight gain help,weight_gain
+nutrition for bulking,weight_gain
+gaining weight naturally,weight_gain
+how to stop being skinny,weight_gain
+weight gain shakes,weight_gain
+diet for mass gain,weight_gain
+healthy weight increase,weight_gain
+bulking diet tips,weight_gain
+i am a copd patient,copd
+what to eat for breathing issues,copd
+potassium foods for lungs,copd
+respiratory health food,copd
+copd nutrition guide,copd
+breathing difficulty diet,copd
+lung health meals,copd
+best vitamins for copd,copd
+foods to help breathing,copd
+respiratory system diet,copd
+copd friendly snacks,copd
+managing copd with food,copd
+potassium for lung support,copd
+diet for lung patients,copd
+what to eat with copd,copd
+lung repair foods,copd
+respiratory wellness diet,copd
+breathing support nutrition,copd
+copd meal help,copd
+diet for asthma and copd,copd
+i am anemic,anemia
+iron rich foods for anemia,anemia
+how to boost hemoglobin,anemia
+low iron diet,anemia
+anemia meal plan,anemia
+best iron sources,anemia
+hemoglobin increase food,anemia
+iron deficiency diet,anemia
+anemia support foods,anemia
+foods high in iron,anemia
+boosting blood levels,anemia
+iron absorption tips,anemia
+iron rich vegetables,anemia
+anemia recovery diet,anemia
+how to treat anemia with food,anemia
+red blood cell boost,anemia
+iron for energy,anemia
+hemoglobin support,anemia
+anemic patient diet,anemia
+iron dense meals,anemia
+thyroid diet,thyroid
+hypothyroid food list,thyroid
+is soy bad for thyroid?,thyroid
+thyroid patient help,thyroid
+tsh level diet,thyroid
+foods for hypothyroidism,thyroid
+managing thyroid with food,thyroid
+iodine rich foods,thyroid
+thyroid health plan,thyroid
+hypothyroidism nutrition,thyroid
+foods to avoid for thyroid,thyroid
+hashimoto diet tips,thyroid
+thyroid support meals,thyroid
+improving thyroid function,thyroid
+thyroid friendly snacks,thyroid
+how to lower tsh with diet,thyroid
+thyroid wellness food,thyroid
+best breakfast for thyroid,thyroid
+thyroid hormone diet,thyroid
+selenium for thyroid,thyroid
+high cholesterol diet,cholesterol
+how to lower ldl,cholesterol
+heart healthy foods,cholesterol
+is oatmeal good for heart?,cholesterol
+cholesterol reduction plan,cholesterol
+reducing bad cholesterol,cholesterol
+best diet for high cholesterol,cholesterol
+foods to lower triglycerides,cholesterol
+heart health diet,cholesterol
+managing ldl with food,cholesterol
+low fat diet for heart,cholesterol
+cholesterol management tips,cholesterol
+fiber for cholesterol,cholesterol
+ldl lowering foods,cholesterol
+healthy fats for heart,cholesterol
+high cholesterol help,cholesterol
+cleaning arteries with food,cholesterol
+cholesterol friendly meals,cholesterol
+lower heart risk diet,cholesterol
+how to lower cholesterol naturally,cholesterol
